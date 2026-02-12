@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from 'zod';
+import { createTicket } from "@/lib/actions";
 
 
 //Validation
@@ -22,8 +23,12 @@ export default function TicketForm(){
     });
 
     const onSubmit = async (data: TicketFormValues) => {
-        //insert server action here
-        console.log(data);
+        try{
+            await createTicket(data);
+            alert("Ticket created successfully!");
+        } catch (error) {
+            alert("Something went wrong")
+        }
     };
 
     return(
