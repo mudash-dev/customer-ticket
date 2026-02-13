@@ -1,11 +1,12 @@
-import { PrismaClient } from "@prisma/client/extension";
+import { PrismaClient } from "@prisma/client";
 
-// This tells TypeScript that 'prisma' might exist on the global object
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
 
-// 1. Check if we already have a prisma instance. If not, create one.
-export const db = globalForPrisma.prisma || new PrismaClient();
+export const db =
+  globalForPrisma.prisma || new PrismaClient();
 
-// 2. If we are NOT in production, save the instance to the global object 
-// so it survives across hot-reloads.
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = db;
+}

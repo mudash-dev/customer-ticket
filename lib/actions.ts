@@ -1,14 +1,17 @@
+'use server';
+
 import { db } from "./db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { email } from "zod";
 
 export async function createTicket(
   formData : { title: string; description: string; priority: any })  
 {
     try{
+        console.log("Attempting to create ticket with:", formData);
+
         //hardcoded a customerId
-        const mockUser = await.db.user.upsert({
+        const mockUser = await db.user.upsert({
             where: { email: 'test@example.com' },
             update: {},
             create: {
@@ -17,20 +20,23 @@ export async function createTicket(
                 role: 'USER',
             },
         });
-        await db.ticket.create({
+        const newTicket = await db.ticket.create({
             data: {
                 title: formData.title,
                 description: formData.description,
-                priority: formData.priority,
+                Priority: formData.priority,
                 customerId: mockUser.id
             },
         });
 
-        revalidatePath('/tickets'); // clear cache and updates data in the background
+        console.log("Ticket created successfully", newTicket.id);
+
     } catch (error){
-        console.error("Database Erroe:", error);
-        throw new Error("Failed tp create ticket");
+        console.error("FULL DATABASE ERROR:", error);
+        throw error;
     }
+
+    revalidatePath('/tickets'); // clear cache and updates data in the background
 
     // navigate back to list by handling post-submission flow
     redirect('/tickets');

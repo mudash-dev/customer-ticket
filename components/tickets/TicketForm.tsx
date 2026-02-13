@@ -37,7 +37,7 @@ export default function TicketForm(){
                 <label className="block text-sm font-medium text-slate-700">Issue Title</label>
                 <input 
                     {...register("title")}
-                    className="mt-1 block w-full rounded-md border border-slate-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    className="mt-1 block w-full rounded-md border border-slate-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black"
                     placeholder="e.g., Cannot login to dashboard"
                 />
                 {errors.title && <p className="text-red-500 txt-xs mt-1">{errors.title.message}</p>}
@@ -46,7 +46,7 @@ export default function TicketForm(){
                 <label className="block text-sm font-medium text-slate-700">Priority</label>
                 <select
                 {...register("priority")}
-                className="mt-1 block w-full rounded-md border border-slate-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border border-slate-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black"
                 >
                     <option value="LOW">Low</option>
                     <option value="MEDIUM">Medium</option>
@@ -59,14 +59,14 @@ export default function TicketForm(){
                 <textarea 
                     {...register("description")}
                     rows={4}
-                    className="mt-1 block w-full rounded-md border border-slate-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    className="mt-1 block w-full rounded-md border border-slate-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black"
                 />
                 {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description.message}</p>}
             </div>
             <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-blue-300 transition-colors"
+                className="w-full bg-blue-950 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-blue-300 transition-colors"
             >
                 {isSubmitting ? "Creating..." : "Submit Ticket"}
             </button>

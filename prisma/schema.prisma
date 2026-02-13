@@ -1,11 +1,11 @@
 
-generator client {
-  provider = "prisma-client"
-  output   = "../lib/generated/prisma"
-}
-
 datasource db {
   provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
 }
 
 //1. Ticket State
@@ -50,7 +50,7 @@ model Ticket {
   id            String    @id @default(cuid())
   title         String
   description   String    // use this @db.Text in posygresql
-  Status        Status    @default(OPEN)
+  status        Status    @default(OPEN)
   Priority      Priority  @default(MEDIUM)
 
   //Who opened ticket?eg customer
