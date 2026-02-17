@@ -1,31 +1,48 @@
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
+import { PriorityBadge } from "@/components/tickets/PriorityBadge";
+import Link from "next/link";
 
-export default async function TicketDetailsPage({ params }: { params: { id: string } }){
+
+export default async function TicketDetailsPage({ params }: { params: Promise<{ id: string }> }){
+
+
+    const { id } = await params;
 
     const ticket = await db.ticket.findUnique({
-        where: { id: params.id}
+        where: { id: id}
     });
 
     if (!ticket) notFound();
 
-    return (
-        <div className="max-w-2xl mx-auto p-10">
-            <div className="mb-6">
-                <span  className="text-blue-600 font-semibold text-sm">
-                    Ticket ID: {ticket.id}
-                </span>
-                <h1 className="text-4xl font-bold text-slate-900 mt-2">
-                    {ticket.title}
-                </h1>
-            </div>
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                <p className="text-slate-700 whitespace-pre-wrap">{ticket.description}</p>
-            </div>
-            <div className="mt-8 pt-6 border-t border-slate-100 flex gap-4">
-                <div className="px-3 py-1 bg-slate-100 rounded-full text-sm">Status: {ticket.Status}</div>
-                <div className="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-sm font-medium">Priority: {ticket.priority}</div>
-            </div>
+   return (
+    <main className="max-w-3xl mx-auto p-10">
+      {/* Back Button to Dashboard */}
+      <Link href="/tickets" className="text-sm text-slate-500 hover:text-blue-600 flex items-center gap-2 mb-8">
+        ← Back to Dashboard
+      </Link>
+
+      <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+        <header className="flex justify-between items-start mb-6">
+          <div>
+             <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Ticket ID: {ticket.id}</span>
+             <h1 className="text-4xl font-black text-slate-900 mt-2 leading-tight">{ticket.title}</h1>
+          </div>
+    
+          <PriorityBadge priority={ticket.Priority} />
+        </header>
+
+        <div className="prose prose-slate max-w-none">
+          <p className="text-slate-700 text-lg leading-relaxed whitespace-pre-wrap">
+            {ticket.description}
+          </p>
         </div>
-    );
+
+        <footer className="mt-12 pt-6 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400">
+           <p>Opened on {new Date(ticket.createdAt).toLocaleString()}</p>
+           <p>Status: <span className="text-blue-600 font-bold">{ticket.status}</span></p>
+        </footer>
+      </div>
+    </main>
+  );
 }

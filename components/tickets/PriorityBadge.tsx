@@ -1,4 +1,4 @@
-import { Priority } from "@/lib/generated/prisma/enums";
+import { Priority } from "@prisma/client";
 
 interface Props {
   priority: Priority;
@@ -15,7 +15,7 @@ const priorityColors: Record<Priority, string> = {
 export function PriorityBadge({ priority }: Props) {
   return (
     <span
-      className={`px-2 py-1 rounded-md text-xs font-semibold ${priorityColors[priority]}`}
+      className={`px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${priorityColors[priority]}`}
     >
       {priority}
     </span>
