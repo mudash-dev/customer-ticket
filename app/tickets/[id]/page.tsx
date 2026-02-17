@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
+import { DeleteButton } from "@/components/tickets/DeleteButton";
 import { PriorityBadge } from "@/components/tickets/PriorityBadge";
 import Link from "next/link";
 
@@ -27,6 +28,9 @@ export default async function TicketDetailsPage({ params }: { params: Promise<{ 
           <div>
              <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Ticket ID: {ticket.id}</span>
              <h1 className="text-4xl font-black text-slate-900 mt-2 leading-tight">{ticket.title}</h1>
+
+             {/*Delete Btn*/}
+             <DeleteButton id={ticket.id}/>
           </div>
     
           <PriorityBadge priority={ticket.Priority} />

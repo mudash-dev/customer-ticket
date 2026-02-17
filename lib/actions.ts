@@ -41,4 +41,19 @@ export async function createTicket(
     // navigate back to list by handling post-submission flow
     redirect('/tickets');
      
-};
+}
+
+export async function deleteTicket(id: string){
+    try{
+        await db.ticket.delete({
+            where: { id },
+        });
+
+        revalidatePath('/tickets');
+    } catch (error) {
+        console.error("Delete error", error);
+        throw new Error("Failed to delete ticket");
+    }
+
+    redirect('/tickets');
+}
