@@ -11,7 +11,9 @@ export default async function TicketsPage(){
     });
 
     return (
-    <div className="space-y-4">
+    <div className="max-w-4xl mx-auto p-6 relative min-h-[80vh]">
+      <h1 className="text-3xl font-black text-slate-900 mb-8">Support Tickets</h1>
+      <div className="space-y-4">
       {tickets.map((ticket) => (
 
         <Link key={ticket.id} href={`/tickets/${ticket.id}`} className="group block">
@@ -28,6 +30,18 @@ export default async function TicketsPage(){
           </div>
         </Link>
       ))}
+      </div>
+
+      {/*New ticket FAB*/}
+      <Link
+        href={"/tickets/new"}
+        className="fixed bottom-10 right-10 w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-blue-700 hover:scale-110 transition-all active:scale-95 z-50 group"
+        title="Create New Ticket"
+      >
+        <span className="text-3xl font-light group-hover:rotate-90 transition-transform duration-300">
+          +
+        </span>
+      </Link>
     </div>
   );
 }
