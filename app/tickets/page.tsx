@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
+import { PriorityBadge } from "@/components/ui/PriorityBadge";
 
  
 export default async function TicketsPage(){
@@ -8,13 +9,6 @@ export default async function TicketsPage(){
     const tickets = await db.ticket.findMany({
         orderBy: { createdAt: 'desc' }
     });
-
-    const priorityColors = {
-  LOW: "bg-blue-100 text-blue-700",
-  MEDIUM: "bg-yellow-100 text-yellow-700",
-  HIGH: "bg-orange-100 text-orange-700",
-  URGENT: "bg-red-100 text-red-700",
-};
 
     return (
         <div className="ma-w-4xl mx-auto p-8">
@@ -39,9 +33,8 @@ export default async function TicketsPage(){
                 <p className="text-slate-600 mt-1 line-clamp-2">{ticket.description}</p>
               </div>
               {/* This is a small Tailwind badge */}
-              <span className={`px-2 py-1 rounded text-xs font-bold ${priorityColors[ticket.priority]}`}>
-                {ticket.priority}
-              </span>
+              <PriorityBadge priority="{ticket.Priority}" />
+
             </div>
             <div className="mt-4 text-xs text-slate-400">
               Created on {new Date(ticket.createdAt).toLocaleDateString()}
