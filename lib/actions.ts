@@ -1,6 +1,7 @@
 'use server';
 
 import { db } from "./db";
+import { Status } from "@prisma/client"; 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -56,4 +57,26 @@ export async function deleteTicket(id: string){
     }
 
     redirect('/tickets');
+}
+
+export async function updateTicketStatus(id: string, ticketStatus: Status) {
+    try{
+        if (!id || !ticketStatus) {
+            throw new Error("Missing ID or Status!")
+        }
+        await db.ticket.update({
+            where: { id: id},
+            data: { Status: ticketStatus }
+        });
+
+        // remember to clear cache both in ticket details and ticketlst 
+        revalidatePath(`/tickets/${id}`);
+        revalidatePath('/tickets');
+    } catch(error) {
+        console.error("Update Status Error:", error);
+        throw new Error("Failed to update status")
+
+    }
+
+    
 }

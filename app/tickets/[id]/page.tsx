@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
+import { StatusSelect } from "@/components/tickets/StatusSelect";
 import { DeleteButton } from "@/components/tickets/DeleteButton";
 import { PriorityBadge } from "@/components/tickets/PriorityBadge";
 import Link from "next/link";
@@ -29,11 +30,13 @@ export default async function TicketDetailsPage({ params }: { params: Promise<{ 
              <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Ticket ID: {ticket.id}</span>
              <h1 className="text-4xl font-black text-slate-900 mt-2 leading-tight">{ticket.title}</h1>
 
-             {/*Delete Btn*/}
-             <DeleteButton id={ticket.id}/>
           </div>
-    
-          <PriorityBadge priority={ticket.Priority} />
+          <div>
+            <PriorityBadge priority={ticket.Priority} />
+            </div>
+          {/*Delete Btn*/}
+            <DeleteButton id={ticket.id}/>
+        
         </header>
 
         <div className="prose prose-slate max-w-none">
@@ -44,7 +47,11 @@ export default async function TicketDetailsPage({ params }: { params: Promise<{ 
 
         <footer className="mt-12 pt-6 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400">
            <p>Opened on {new Date(ticket.createdAt).toLocaleString()}</p>
-           <p>Status: <span className="text-blue-600 font-bold">{ticket.status}</span></p>
+           <p className="font-extrabold">Status: <span></span>
+             {/*Ticket Status*/}
+             <StatusSelect id={ticket.id} currentStatus={ticket.Status}/>
+            {/*<span className="text-blue-600 font-bold">{ticket.Status}</span>*/}
+            </p>
         </footer>
       </div>
     </main>
