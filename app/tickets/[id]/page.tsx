@@ -20,11 +20,11 @@ export default async function TicketDetailsPage({ params }: { params: Promise<{ 
    return (
     <main className="max-w-3xl mx-auto p-10">
       {/* Back Button to Dashboard */}
-      <Link href="/tickets" className="text-sm text-slate-500 hover:text-blue-600 flex items-center gap-2 mb-8">
+      <Link href="/tickets" className="text-sm text-shadow-slate-200 hover:text-blue-600 flex items-center gap-2 mb-8">
         ← Back to Dashboard
       </Link>
 
-      <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+      <div className="bg-amber-50 border border-amber-700 rounded-3xl p-8 shadow-sm">
         <header className="flex justify-between items-start mb-6">
           <div>
              <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Ticket ID: {ticket.id}</span>
