@@ -47,11 +47,11 @@ export default async function TicketDetailsPage({ params }: { params: Promise<{ 
 
         <footer className="mt-12 pt-6 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400">
            <p>Opened on {new Date(ticket.createdAt).toLocaleString()}</p>
-           <p className="font-extrabold">Status: <span></span>
+           <div className="font-extrabold">Status: <span></span>
              {/*Ticket Status*/}
              <StatusSelect id={ticket.id} currentStatus={ticket.Status}/>
             {/*<span className="text-blue-600 font-bold">{ticket.Status}</span>*/}
-            </p>
+            </div>
         </footer>
       </div>
     </main>
