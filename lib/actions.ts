@@ -2,17 +2,29 @@
 
 import { db } from "./db";
 import { Status } from "@prisma/client"; 
+import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function createTicket(
-  formData : { title: string; description: string; priority: any })  
-{
-    try{
-        console.log("Attempting to create ticket with:", formData);
+  formData : any)  {
+  const { userId } = await auth(); // get the Clerk Id
+
+  if (!userId) throw new Error("Unauthorized");
+
+  await db.ticket.create({
+    data: {
+        title: formData.title,
+        description: formData.description,
+        Priority: formData.priority,
+        customerId: userId,
+    },
+  });
+
+    /*try{
 
         //hardcoded a customerId
-        const mockUser = await db.user.upsert({
+       /* const mockUser = await db.user.upsert({
             where: { email: 'test@example.com' },
             update: {},
             create: {
@@ -35,7 +47,7 @@ export async function createTicket(
     } catch (error){
         console.error("FULL DATABASE ERROR:", error);
         throw error;
-    }
+    }*/
 
     revalidatePath('/tickets'); // clear cache and updates data in the background
 

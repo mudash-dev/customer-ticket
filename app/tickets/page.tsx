@@ -1,14 +1,37 @@
 import { db } from "@/lib/db";
 import Link from "next/link";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
 import { PriorityBadge } from "@/components/tickets/PriorityBadge";
 
  
 export default async function TicketsPage(){
 
-    const tickets = await db.ticket.findMany({
+  const { userId } = await auth();
+  if (!userId) {
+  throw new Error("Unauthorized");
+}
+
+  const user = await currentUser();
+
+  //Define the role here from metadata
+  const role = user?.publicMetadata.role || "USER";
+
+    let tickets;
+
+    if (role === "ADMIN"){
+      tickets = await db.ticket.findMany({
         orderBy: { createdAt: 'desc' }
     });
+    } else if (role === "AGENT") {
+      tickets = await db.ticket.findMany({
+        where: { agentId: userId}
+      });
+    } else {
+      tickets = await db.ticket.findMany({
+        where: { customerId: userId }
+      });
+    }
 
     return (
     <div className="max-w-4xl mx-auto p-6 relative min-h-[80vh]">
