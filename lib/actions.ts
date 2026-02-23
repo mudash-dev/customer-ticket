@@ -6,6 +6,7 @@ import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+
 export async function createTicket(
   formData : any)  {
   const { userId } = await auth(); // get the Clerk Id
@@ -91,4 +92,21 @@ export async function updateTicketStatus(id: string, ticketStatus: Status) {
     }
 
     
+}
+
+export async function assignAgent(
+    ticketId: string, agentId: string
+){
+    try {
+        await db.ticket.update({
+            where: { id: ticketId },
+            data : { agentId: agentId },
+        });
+
+        revalidatePath(`/tickets/${ticketId}`);
+    } catch (error) {
+        console.error("Assignment Error;", error);
+        throw new Error("Failed to assign agent");
+    }
+
 }

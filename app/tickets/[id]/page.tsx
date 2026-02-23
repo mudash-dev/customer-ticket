@@ -1,4 +1,6 @@
 import { db } from "@/lib/db";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { AssignAgentSelect } from "@/components/tickets/AssignAgentSelect";
 import { notFound } from "next/navigation";
 import { StatusSelect } from "@/components/tickets/StatusSelect";
 import { DeleteButton } from "@/components/tickets/DeleteButton";
@@ -7,15 +9,20 @@ import Link from "next/link";
 
 
 export default async function TicketDetailsPage({ params }: { params: Promise<{ id: string }> }){
-
-
     const { id } = await params;
+    const user = await currentUser();
+    const role = (user?.publicMetadata?.role as string) || "USER";
 
     const ticket = await db.ticket.findUnique({
-        where: { id: id}
+        where: { id: id},
+        include: { agent: true}
     });
 
     if (!ticket) notFound();
+
+    const agents = role === "ADMIN" ? await db.user.findMany({
+      where: { role : "AGENT"}
+    }) : [];
 
    return (
     <main className="max-w-3xl mx-auto p-10">
@@ -39,6 +46,19 @@ export default async function TicketDetailsPage({ params }: { params: Promise<{ 
         
         </header>
 
+          <div>
+              {/*Display assignment dropdown only for admins*/}
+            { role === "ADMIN" && (
+              <div className="w-64">
+                <AssignAgentSelect
+                ticketId={ticket.id}
+                agents={agents}
+                currentAgentId={ticket.agentId}
+                />
+              </div>
+            )}
+          </div>
+
         <div className="prose prose-slate max-w-none">
           <p className="text-slate-700 text-lg leading-relaxed whitespace-pre-wrap">
             {ticket.description}
@@ -52,6 +72,7 @@ export default async function TicketDetailsPage({ params }: { params: Promise<{ 
              <StatusSelect id={ticket.id} currentStatus={ticket.Status}/>
             {/*<span className="text-blue-600 font-bold">{ticket.Status}</span>*/}
             </div>
+
         </footer>
       </div>
     </main>
