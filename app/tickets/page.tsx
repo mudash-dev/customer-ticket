@@ -1,7 +1,6 @@
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
 import { PriorityBadge } from "@/components/tickets/PriorityBadge";
 
  
@@ -14,8 +13,8 @@ export default async function TicketsPage(){
 
   const user = await currentUser();
 
-  //Define the role here from metadata
-  const role = user?.publicMetadata.role || "USER";
+  //Define the role here from CLerks metadata
+  const role = user?.publicMetadata.role as string || "USER";
 
     let tickets;
 
@@ -25,17 +24,22 @@ export default async function TicketsPage(){
     });
     } else if (role === "AGENT") {
       tickets = await db.ticket.findMany({
-        where: { agentId: userId}
+        where: { agentId: userId},
+        orderBy: { createdAt: 'desc'}
       });
-    } else {
+    } else { // USER - customer
       tickets = await db.ticket.findMany({
-        where: { customerId: userId }
+        where: { customerId: userId },
+        orderBy: { createdAt: 'desc'}
       });
     }
 
     return (
     <div className="max-w-4xl mx-auto p-6 relative min-h-[80vh]">
-      <h1 className="text-3xl font-black text-slate-900 dark:text-slate-200 mb-8">Ticket Backlog</h1>
+      <h1 className="text-xl font-bold mb-4">
+        {role} Dashboard: {tickets.length} Tickets
+      </h1>
+      <h3 className="text-3xl font-black text-slate-900 dark:text-slate-200 mb-8">Ticket Backlog</h3>
       <div className="space-y-4">
       {tickets.map((ticket) => (
 
