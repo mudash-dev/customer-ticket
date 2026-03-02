@@ -35,11 +35,11 @@ export default async function TicketsPage(){
     }
 
     return (
-    <div className="max-w-4xl mx-auto p-6 relative min-h-[80vh]">
-      <h1 className="text-xl font-bold mb-4">
-        {role} Dashboard: {tickets.length} Tickets
+    <div className="max-w-4xl mx-auto p-6 relative min-h-[80vh] ">
+      <h1 className="text-2xl font-bold mb-4">
+        {role} DASHBOARD: {tickets.length} TICKETS
       </h1>
-      <h3 className="text-3xl font-black text-slate-900 dark:text-slate-200 mb-8">Ticket Backlog</h3>
+      <h3 className="text-xl font-black text-slate-900 dark:text-slate-200 mb-8">Ticket Backlog</h3>
       <div className="space-y-4">
       {tickets.map((ticket) => (
 
