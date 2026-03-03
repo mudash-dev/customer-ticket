@@ -22,7 +22,7 @@ You can view the live application here:
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/your-username/ticketly.git](https://github.com/your-username/ticketly.git)
+   git clone https://github.com/mudash-dev/customer-ticket.git
 
 2. **Install dependencies:**
     ```bash
@@ -36,15 +36,15 @@ You can view the live application here:
     WEBHOOK_SECRET=...
     DATABASE_URL="file:./dev.db"
     ```
-4.**Initialize Database:**
-  ```bash
-  npx prisma generate
-  npx prisma db push
-  ```
-5.**Run Development Server:**
-  ```bash
-  npm run dev
-  ```
+4. **Initialize Database:**
+     ```bash
+     npx prisma generate
+     npx prisma db push
+     ```
+5. **Run Development Server:**
+     ```bash
+     npm run dev
+     ```
 
 ## 🤝 Acknowledgments & Contributions
 Special thanks to the following resources:
