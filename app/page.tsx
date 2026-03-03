@@ -89,11 +89,11 @@ export default async function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-slate-100 dark:border-slate-800">
+      <footer className="py-12 border-t border-slate-400 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-xl font-black text-purple-600">TICKETLY</div>
           <p className="text-slate-400 text-sm">
-            © {new Date().getFullYear()} Mudash Dev. Built in Kenya for the world.
+            © {new Date().getFullYear()} Mudash-Dev. <br/> Built in Kenya for the world.
           </p>
           <div className="flex gap-6 text-sm font-medium text-slate-600 dark:text-slate-400">
             <Link href="/tickets" className="hover:text-purple-600">Dashboard</Link>
