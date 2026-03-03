@@ -100,10 +100,11 @@ export async function assignAgent(
     try {
         await db.ticket.update({
             where: { id: ticketId },
-            data : { agentId: agentId },
+            data : { agentId: agentId === "" ? null : agentId},
         });
 
         revalidatePath(`/tickets/${ticketId}`);
+        revalidatePath(`/tickets`);//Main dashboard refreshed
     } catch (error) {
         console.error("Assignment Error;", error);
         throw new Error("Failed to assign agent");

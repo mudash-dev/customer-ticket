@@ -30,8 +30,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="flex justify-between p-4 bg-amber-500">
-          <h1 className=" text-3xl font-bold">TICKETLY</h1>
+        <header className="flex justify-between p-4 bg-purple-700">
+          <h1 className=" text-3xl font-bold text-slate-100">TICKETLY</h1>
           {/*So display Login if out, user profile if in*/}
           <SignedOut>
             <SignInButton mode="modal"/>
