@@ -39,6 +39,7 @@ export default function RootLayout({
           <SignedIn>
             <UserButton showName/>
           </SignedIn>
+          
         </header>
         {children}
       </body>
