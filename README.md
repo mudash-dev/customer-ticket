@@ -13,7 +13,7 @@ You can view the live application here:
 ## ✨ Features
 * **Role-Based Access Control (RBAC):** Distinct dashboards for Admins (Backlog management), Agents (Assigned tasks), and Customers (Ticket creation).
 * **Real-time Sync:** Powered by **Clerk Webhooks** to ensure user data remains consistent between Auth and the local database.
-* **Modern Tech Stack:** Built with **Next.js 16**, **Prisma**, **Tailwind CSS**, and **Neon**.
+* **Modern Tech Stack:** Built with **Next.js 16**, **Prisma**, **Tailwind CSS**, and **Neon (Postgresql)**.
 * **Pluggable Architecture:** Designed to be easily adapted for telemedicine, insurance, or logistics portals.
 
 ---
