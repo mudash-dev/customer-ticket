@@ -51,7 +51,7 @@ model Ticket {
   title         String
   description   String    @db.Text 
   status        status    @default(OPEN)
-  Priority      priority  @default(MEDIUM)
+  priority      priority  @default(MEDIUM)
 
   //Who opened ticket?eg customer
   customerId    String
