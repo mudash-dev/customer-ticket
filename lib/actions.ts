@@ -17,7 +17,7 @@ export async function createTicket(
     data: {
         title: formData.title,
         description: formData.description,
-        Priority: formData.priority,
+        priority: formData.priority,
         customerId: userId,
     },
   });
