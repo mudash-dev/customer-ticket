@@ -6,7 +6,7 @@
 
 ## 🚀 Live Demo
 You can view the live application here:
-**[Link to be added upon deployment]**
+**[https://ticketly-xnnu.onrender.com]**
 
 ---
 
