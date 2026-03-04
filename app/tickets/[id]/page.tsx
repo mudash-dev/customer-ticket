@@ -39,7 +39,7 @@ export default async function TicketDetailsPage({ params }: { params: Promise<{ 
 
           </div>
           <div>
-            <PriorityBadge priority={ticket.Priority} />
+            <PriorityBadge priority={ticket.priority} />
             </div>
           {/*Delete Btn*/}
             <DeleteButton id={ticket.id}/>
@@ -69,7 +69,7 @@ export default async function TicketDetailsPage({ params }: { params: Promise<{ 
            <p>Opened on {new Date(ticket.createdAt).toLocaleString()}</p>
            <div className="font-extrabold">Status: <span></span>
              {/*Ticket Status*/}
-             <StatusSelect id={ticket.id} currentStatus={ticket.Status}/>
+             <StatusSelect id={ticket.id} currentStatus={ticket.status}/>
             {/*<span className="text-blue-600 font-bold">{ticket.Status}</span>*/}
             </div>
 

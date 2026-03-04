@@ -1,15 +1,15 @@
 "use client";
 
+import { status } from "@prisma/client";
 import { updateTicketStatus } from "@/lib/actions";
-import { Status } from "@prisma/client";
 import { useState } from "react";
 
-export function StatusSelect({ id, currentStatus }: { id: string, currentStatus: Status }){
+export function StatusSelect({ id, currentStatus }: { id: string, currentStatus: status }){
     const [isUpdating, setIsUpdating] = useState(false);
 
     const handleStatusChange = async (newStatus: string) => {
         setIsUpdating(true);
-        await updateTicketStatus(id,newStatus as Status);
+        await updateTicketStatus(id,newStatus as status);
         setIsUpdating(false);
     };
 
@@ -24,7 +24,7 @@ export function StatusSelect({ id, currentStatus }: { id: string, currentStatus:
           ${currentStatus === 'CLOSED' ? 'bg-slate-100 border-slate-300 text-slate-600' : 'bg-green-50 border-green-200 text-green-700'}`}
       >
         
-        {Object.values(Status).map((s) => (
+        {Object.values(status).map((s) => (
           <option key={s} value={s}>
             {s.replace('_', ' ')}
           </option>

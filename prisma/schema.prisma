@@ -10,13 +10,13 @@ generator client {
 
 //1. Ticket State
 
-enum Status{
+enum status{
   OPEN
   STARTED
   IN_REVIEW
   CLOSED
 }
-enum Priority{
+enum priority{
   LOW
   MEDIUM
   HIGH
@@ -49,9 +49,9 @@ enum Role {
 model Ticket {
   id            String    @id @default(cuid())
   title         String
-  description   String    // use this @db.Text in posygresql
-  status        Status    @default(OPEN)
-  Priority      Priority  @default(MEDIUM)
+  description   String    @db.Text 
+  status        status    @default(OPEN)
+  Priority      priority  @default(MEDIUM)
 
   //Who opened ticket?eg customer
   customerId    String

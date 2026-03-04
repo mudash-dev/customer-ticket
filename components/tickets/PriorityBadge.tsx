@@ -1,11 +1,11 @@
-import { Priority } from "@prisma/client";
+import { priority } from "@prisma/client";
 
 interface Props {
-  priority: Priority;
+  priority: priority;
 }
 
 
-const priorityColors: Record<Priority, string> = {
+const priorityColors: Record<priority, string> = {
       LOW: "bg-gray-200 text-gray-800",
       MEDIUM: "bg-blue-200 text-blue-800",
       HIGH: "bg-orange-200 text-orange-800",

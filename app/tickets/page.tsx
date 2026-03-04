@@ -54,7 +54,7 @@ export default async function TicketsPage(){
             </div>
             
             <div className="flex items-center gap-4">
-              <PriorityBadge priority={ticket.Priority} />
+              <PriorityBadge priority={ticket.priority} />
               <span className="text-slate-300 group-hover:text-blue-500 transition-colors">→</span>
             </div>
           </div>

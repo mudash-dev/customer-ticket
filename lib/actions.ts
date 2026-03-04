@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from "./db";
-import { Status } from "@prisma/client"; 
+import { status } from "@prisma/client"; 
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -72,14 +72,14 @@ export async function deleteTicket(id: string){
     redirect('/tickets');
 }
 
-export async function updateTicketStatus(id: string, ticketStatus: Status) {
+export async function updateTicketStatus(id: string, ticketStatus: status) {
     try{
         if (!id || !ticketStatus) {
             throw new Error("Missing ID or Status!")
         }
         await db.ticket.update({
             where: { id: id},
-            data: { Status: ticketStatus }
+            data: { status: ticketStatus }
         });
 
         // remember to clear cache both in ticket details and ticketlst 
